@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// 1. Import layar Dashboard Akademik dari Modul 02
+import 'modul_02/academic_dashboard_screen.dart';
 
 void main() {
   runApp(const PoliwangiProfileApp());
@@ -12,7 +14,6 @@ class PoliwangiProfileApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profil Mahasiswa TRPL',
-      // MENGGUNAKAN colorSchemeSeed (Lebih simpel & bebas error ColorScheme)
       theme: ThemeData(
         colorSchemeSeed: const Color(0xFF0284C7),
         useMaterial3: true,
@@ -80,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Text(
-                  'NIM: 3624XXXXXXXX',
+                  'NIM: 362558302055',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -90,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Kartu Informasi Akademik & Info Tambahan
+              // Kartu Informasi Akademik
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -129,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
                       _InfoRow(
                         icon: Icons.link_rounded,
                         label: 'Repositori GitHub',
-                        value: 'github.com/username-anda',
+                        value: 'github.com/alvincandrawinata32-code',
                       ),
                       Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
@@ -143,10 +144,34 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Tombol Verifikasi
+              // TOMBOL 1: Navigasi Pindah ke Dashboard Akademik TRPL (Modul 02)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AcademicDashboardScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.dashboard_rounded),
+                  label: const Text('Buka Dashboard Akademik TRPL'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0284C7),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // TOMBOL 2: Verifikasi Status Mahasiswa (SnackBar Modul 01)
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -159,9 +184,9 @@ class ProfileScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.verified_user_rounded),
                   label: const Text('Verifikasi Status Mahasiswa'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0284C7),
-                    foregroundColor: Colors.white,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF0284C7),
+                    side: const BorderSide(color: Color(0xFF0284C7)),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
