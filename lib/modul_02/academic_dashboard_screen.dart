@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'models/matakuliah.dart';
 import 'widgets/kartu_matakuliah.dart';
 import 'widgets/header_banner.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../modul_03/screens/krs_list_screen.dart';
 
 class AcademicDashboardScreen extends StatefulWidget {
   const AcademicDashboardScreen({super.key});
@@ -38,6 +40,22 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
           backgroundColor: const Color(0xFF0284C7),
           foregroundColor: Colors.white,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.assignment_outlined),
+              tooltip: 'Kelola KRS (Modul 03)',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    // Pembungkus ProviderScope wajib ada agar Riverpod berjalan [3]
+                    builder: (context) => const ProviderScope(
+                      child: KrsListScreen(),
+                    ),
+                  ),
+                );
+              },
+            ),
+
             IconButton(
               icon: Icon(_isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
               tooltip: _isDarkMode ? 'Mode Terang' : 'Mode Gelap',

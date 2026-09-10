@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../models/krs_course.dart';
 import '../providers/krs_providers.dart';
+import 'add_krs_screen.dart';
+import 'courses_detail_screen.dart';
 
 class KrsListScreen extends ConsumerWidget {
   const KrsListScreen({super.key});
@@ -52,7 +53,12 @@ class KrsListScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(
-                    onPressed: () => context.push('/modul-03/add'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AddKrsScreen()),
+                      );
+                    },
                     icon: const Icon(Icons.add),
                     label: const Text('Tambah Mata Kuliah'),
                   ),
@@ -86,14 +92,24 @@ class KrsListScreen extends ConsumerWidget {
                       },
                     ),
                     onTap: () {
-                      context.push('/modul-03/detail/${course.code}', extra: course);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CourseDetailScreen(courseCode: course.code, course: course),
+                        ),
+                      );
                     },
                   ),
                 );
               },
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push('/modul-03/add'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddKrsScreen()),
+          );
+        },
         backgroundColor: const Color(0xFF0284C7),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
