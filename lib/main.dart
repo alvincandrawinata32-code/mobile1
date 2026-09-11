@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-// 1. Import layar Dashboard Akademik dari Modul 02
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. Tambahkan import ini
 import 'modul_02/academic_dashboard_screen.dart';
 
 void main() {
-  runApp(const PoliwangiProfileApp());
+  // 2. Bungkus runApp dengan ProviderScope di titik paling atas aplikasi
+  runApp(
+    const ProviderScope(
+      child: PoliwangiProfileApp(),
+    ),
+  );
 }
 
 class PoliwangiProfileApp extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../models/krs_course.dart';
 import '../providers/krs_providers.dart';
 
@@ -29,8 +28,10 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
     super.dispose();
   }
 
-  void _simpanMataKuliah() {
+ void _simpanMataKuliah() {
+    // 1. Validasi seluruh kolom form
     if (_formKey.currentState?.validate() ?? false) {
+      // 2. Buat objek data mata kuliah baru
       final newCourse = KrsCourse(
         code: _codeController.text.trim().toUpperCase(),
         name: _nameController.text.trim(),
@@ -39,8 +40,10 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
         description: _descController.text.trim(),
       );
 
+      // 3. Wajib panggil Riverpod Notifier untuk menambah data ke state global
       final success = ref.read(krsProvider.notifier).tambahMataKuliah(newCourse);
 
+      // 4. Jika berhasil ditambah
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -49,8 +52,11 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
             behavior: SnackBarBehavior.floating,
           ),
         );
-        context.pop();
+        
+        // Tutup halaman form dan kembali ke daftar KRS
+        Navigator.pop(context);
       } else {
+        // Jika gagal (kode duplikat atau total SKS > 24)
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Gagal: Kode MK sudah terdaftar atau total SKS melebihi 24!'),
@@ -61,7 +67,7 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
       }
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
