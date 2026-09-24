@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. Tambahkan import ini
 import 'modul_02/academic_dashboard_screen.dart';
+import 'modul_04/screens/announcement_list_screen.dart';
+import 'modul_04/services/announcement_api.dart';
+
+const bool kModeSimulasi = bool.fromEnvironment('SIMULASI');
 
 void main() {
   // 2. Bungkus runApp dengan ProviderScope di titik paling atas aplikasi
@@ -192,6 +196,32 @@ class ProfileScreen extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF0284C7),
                     side: const BorderSide(color: Color(0xFF0284C7)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // TOMBOL 3: Navigasi Pindah ke Daftar Pengumuman (Modul 04)
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnnouncementListScreen(
+                          api: AnnouncementApi(modeSimulasi: kModeSimulasi),
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.list),
+                  label: const Text('Lihat Daftar Pengumuman'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0284C7),
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
